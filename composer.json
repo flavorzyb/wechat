@@ -1,0 +1,60 @@
+{
+  "name":"flavorzyb/wechatsdk",
+  "description": "微信公众号SDK以及微信开放平台SDK",
+  "keywords": [
+    "sdk",
+    "library",
+    "WeChat"
+  ],
+  "license": "MIT",
+  "type": "project",
+
+  "require": {
+    "flavor/simple": "~1.0"
+  },
+
+  "require-dev": {
+    "mockery/mockery": "~0.9",
+    "phpunit/phpunit": "~5.0"
+  },
+
+  "autoload": {
+    "classmap": [
+    ],
+    "files": [
+    ],
+    "psr-4": {
+      "WeChat\\": "library/"
+    }
+  },
+
+  "autoload-dev": {
+    "classmap": [
+    ],
+
+    "files": [
+    ],
+
+    "psr-4": {
+      "WeChat\\": "tests/WeChat/"
+    }
+  },
+
+  "scripts": {
+    "post-install-cmd": [
+      "composer dump-autoload --optimize"
+    ],
+    "post-update-cmd": [
+      "composer dump-autoload --optimize"
+    ],
+    "post-create-project-cmd": [
+      "composer dump-autoload --optimize"
+    ]
+  },
+
+  "config": {
+    "preferred-install": "dist"
+  },
+
+  "minimum-stability": "stable"
+}

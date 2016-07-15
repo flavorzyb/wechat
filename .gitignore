@@ -1,0 +1,6 @@
+/.idea/
+/.env
+/.env.testing
+.DS_Store
+/vendor
+composer.lock
