@@ -40,17 +40,5 @@
     }
   },
 
-  "scripts": {
-    "post-install-cmd": [
-      "composer dump-autoload --optimize"
-    ],
-    "post-update-cmd": [
-      "composer dump-autoload --optimize"
-    ],
-    "post-create-project-cmd": [
-      "composer dump-autoload --optimize"
-    ]
-  },
-
-  "minimum-stability": "dev"
+  "minimum-stability": "stable"
 }
