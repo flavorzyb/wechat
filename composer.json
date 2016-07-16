@@ -24,7 +24,7 @@
     "files": [
     ],
     "psr-4": {
-      "WeChat\\": "library/"
+      "WeChat\\": "src/"
     }
   },
 
@@ -52,9 +52,5 @@
     ]
   },
 
-  "config": {
-    "preferred-install": "dist"
-  },
-
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }
