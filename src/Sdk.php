@@ -9,6 +9,7 @@ use WeChat\Message\Formatter;
 use WeChat\Sdk\AccessToken;
 use WeChat\Sdk\JsApiTicket;
 use \Exception;
+use WeChat\Sdk\SdkParameter;
 
 class Sdk
 {
@@ -114,17 +115,17 @@ class Sdk
      * @var JsApiTicket
      */
     protected $jsApiTicket      = null;
+
     /**
      * Sdk constructor.
-     * @param string $appId
-     * @param string $appSecret
-     * @param string $tokenFilePath
+     * @param SdkParameter $parameter
      */
-    public function __construct($appId, $appSecret, $tokenFilePath)
+    public function __construct(SdkParameter $parameter)
     {
-        $this->appId            = $appId;
-        $this->appSecret        = $appSecret;
-        $this->tokenFilePath    = $tokenFilePath;
+        $this->appId            = $parameter->getAppId();
+        $this->appSecret        = $parameter->getAppSecret();
+        $this->tokenFilePath    = $parameter->getTokenFilePath();
+        $this->tokenString      = $parameter->getTokenString();
     }
 
     /**
@@ -492,16 +493,6 @@ class Sdk
     public function getTokenString()
     {
         return $this->tokenString;
-    }
-
-    /**
-     * set token string
-     *
-     * @param string $tokenString
-     */
-    public function setTokenString($tokenString)
-    {
-        $this->tokenString = $tokenString;
     }
 
     /**

@@ -7,6 +7,7 @@ use Wechat\Message\WxSendTextMsg;
 use \Exception;
 use WeChat\Sdk\AccessToken;
 use WeChat\Sdk\JsApiTicket;
+use WeChat\Sdk\SdkParameter;
 
 class MockSDK extends Sdk
 {
@@ -37,12 +38,20 @@ class SdkTest extends \PHPUnit_Framework_TestCase
     protected $tokenString = "93881ad73f6494c383";
     protected $tokenFilePath = null;
     protected $jsApiTokenFilePath = null;
+    /**
+     * @var SdkParameter
+     */
+    protected $param = null;
     protected function setUp()
     {
         $this->tokenFilePath = __DIR__ . '/access_token_sdk.log';
         $this->jsApiTokenFilePath = __DIR__ . '/js_api_token_sdk.log';
-        $this->sdk  = new MockSDK($this->appId, $this->appSecret, $this->tokenFilePath);
-        $this->sdk->setTokenString($this->tokenString);
+        $this->param = new SdkParameter();
+        $this->param->setAppId($this->appId);
+        $this->param->setAppSecret($this->appSecret);
+        $this->param->setTokenFilePath($this->tokenFilePath);
+        $this->param->setTokenString($this->tokenString);
+        $this->sdk  = new MockSDK($this->param);
         $this->sdk->setAccessToken($this->getAccessTokenMockObject());
         $this->sdk->setFileSystem($this->getMockFileStemInstance());
         $this->sdk->setJsApiTicket($this->getJsApiTicketMockInstance());
@@ -61,8 +70,7 @@ class SdkTest extends \PHPUnit_Framework_TestCase
 
     public function testGetOptions()
     {
-        $this->sdk  = new MockSDK($this->appId, $this->appSecret, $this->tokenFilePath);
-        $this->sdk->setTokenString($this->tokenString);
+        $this->sdk  = new MockSDK($this->param);
         self::assertNull($this->sdk->getAccessToken());
         self::assertNull($this->sdk->getJsApiTicket());
 
@@ -347,7 +355,8 @@ class SdkTest extends \PHPUnit_Framework_TestCase
         $signature  = 'a9267ca55f3d89d2d63d342c74816d4a1dad08f8';
         $timestamp  = '1440384428';
         $nonce      = '551611692';
-        $this->sdk->setTokenString(null);
+        $this->param->setTokenString('');
+        $this->sdk  = new MockSDK($this->param);
         $this->sdk->validSignature($signature, $timestamp, $nonce);
     }
 
