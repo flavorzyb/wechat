@@ -38,6 +38,7 @@ class SdkTest extends \PHPUnit_Framework_TestCase
     protected $tokenString = "93881ad73f6494c383";
     protected $tokenFilePath = null;
     protected $jsApiTokenFilePath = null;
+    protected $ticketFilePath = null;
     /**
      * @var SdkParameter
      */
@@ -46,11 +47,14 @@ class SdkTest extends \PHPUnit_Framework_TestCase
     {
         $this->tokenFilePath = __DIR__ . '/access_token_sdk.log';
         $this->jsApiTokenFilePath = __DIR__ . '/js_api_token_sdk.log';
+        $this->ticketFilePath = __DIR__ . '/ticket_file_path.log';
         $this->param = new SdkParameter();
         $this->param->setAppId($this->appId);
         $this->param->setAppSecret($this->appSecret);
         $this->param->setTokenFilePath($this->tokenFilePath);
         $this->param->setTokenString($this->tokenString);
+        $this->param->setTicketFilePath($this->ticketFilePath);
+
         $this->sdk  = new MockSDK($this->param);
         $this->sdk->setAccessToken($this->getAccessTokenMockObject());
         $this->sdk->setFileSystem($this->getMockFileStemInstance());
@@ -71,8 +75,8 @@ class SdkTest extends \PHPUnit_Framework_TestCase
     public function testGetOptions()
     {
         $this->sdk  = new MockSDK($this->param);
-        self::assertNull($this->sdk->getAccessToken());
-        self::assertNull($this->sdk->getJsApiTicket());
+        self::assertTrue($this->sdk->getAccessToken() instanceof AccessToken);
+        self::assertTrue($this->sdk->getJsApiTicket() instanceof JsApiTicket);
 
         $accessToken = new AccessToken($this->appId, $this->appSecret, $this->tokenFilePath);
         $this->sdk->setAccessToken($accessToken);

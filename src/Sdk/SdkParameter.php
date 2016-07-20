@@ -30,6 +30,12 @@ class SdkParameter
     protected $tokenString      = null;
 
     /**
+     * ticket file path
+     *
+     * @var string
+     */
+    protected $ticketFilePath   = null;
+    /**
      * @return string
      */
     public function getAppId()
@@ -91,5 +97,23 @@ class SdkParameter
     public function setTokenString($tokenString)
     {
         $this->tokenString = $tokenString;
+    }
+
+    /**
+     * get ticket file path
+     * @return string
+     */
+    public function getTicketFilePath()
+    {
+        return $this->ticketFilePath;
+    }
+
+    /**
+     * set ticket file path
+     * @param string $ticketFilePath
+     */
+    public function setTicketFilePath($ticketFilePath)
+    {
+        $this->ticketFilePath = $ticketFilePath;
     }
 }

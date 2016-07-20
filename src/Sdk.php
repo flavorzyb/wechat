@@ -126,6 +126,10 @@ class Sdk
         $this->appSecret        = $parameter->getAppSecret();
         $this->tokenFilePath    = $parameter->getTokenFilePath();
         $this->tokenString      = $parameter->getTokenString();
+
+        $accessToken            = new AccessToken($this->appId, $this->appSecret, $this->tokenFilePath);
+        $this->setAccessToken($accessToken);
+        $this->setJsApiTicket(new JsApiTicket($accessToken, $parameter->getTicketFilePath()));
     }
 
     /**
