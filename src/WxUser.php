@@ -89,7 +89,7 @@ class WxUser
     public function __construct()
     {
         $this->sex = new WxUserSex(WxUserSex::UNKNOWN);
-        $this->subscribe = new WxUserSubScribe(WxUserSubscribe::UNSUBSCRIBE);
+        $this->subscribe = new WxUserSubscribe(WxUserSubscribe::UNSUBSCRIBE);
     }
 
     /**
