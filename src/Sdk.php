@@ -33,7 +33,8 @@ class Sdk
     const UPLOAD_TYPE_VIDEO     = 'video';
     // 缩略图类型
     const UPLOAD_TYPE_THUMB     = 'thumb';
-
+    // 网站应用登陆
+    const LOGIN_QR_CODE_URL = 'https://open.weixin.qq.com/connect/qrconnect?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_login&state=%s#wechat_redirect';
     // create menu URL
     const MENU_CREATE_URL   = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s';
 
@@ -65,7 +66,7 @@ class Sdk
     const MEDIA_TEMP_GET_URL    = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s';
 
     // 通过OAuth2获取code
-    const OAUTH2_LOGIN_CODE_URL   = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+    const OAUTH2_LOGIN_CODE_URL   = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=snsapi_userinfo&state=%s#wechat_redirect';
     // 网页授权access token
     const OAUTH2_ACCESS_TOKEN_URL = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code';
     // 网页授权获取用户信息
@@ -770,10 +771,11 @@ class Sdk
     /**
      * 拼接OAUTH2的CODE url
      * @param string $redirectUrl
+     * @param string $state
      * @return string
      */
-    public function getOAuth2Url($redirectUrl) {
-        return sprintf(self::OAUTH2_LOGIN_CODE_URL, $this->appId, urlencode($redirectUrl));
+    public function getOAuth2Url($redirectUrl, $state) {
+        return sprintf(self::OAUTH2_LOGIN_CODE_URL, $this->appId, urlencode($redirectUrl), $state);
     }
 
     /**
@@ -853,6 +855,17 @@ class Sdk
         $str = "jsapi_ticket=%s&noncestr=%s&timestamp=%d&url=%s";
         $result = sprintf($str, $this->getJsApiTicket()->getTicket(), $nonceStr, $time, $url);
         return sha1($result);
+    }
+
+    /**
+     * 使用微信登陆
+     * @param string $url
+     * @param string $state
+     * @return string
+     */
+    public function getLoginUrl($url, $state)
+    {
+        return sprintf(self::LOGIN_QR_CODE_URL, $this->appId, urlencode($url), trim($state));
     }
 
     /**

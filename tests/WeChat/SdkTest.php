@@ -652,7 +652,7 @@ class SdkTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetOAuth2UrlReturnString() {
-        $url = $this->sdk->getOAuth2Url("http://www.baidu.com");
+        $url = $this->sdk->getOAuth2Url("http://www.baidu.com", md5(uniqid()));
         $this->assertTrue(stripos($url, urlencode("http://www.baidu.com")) > 0);
         $this->assertTrue(stripos($url, "https://open.weixin.qq.com/connect/oauth2/authorize?appid=") == 0);
     }
@@ -734,5 +734,12 @@ class SdkTest extends \PHPUnit_Framework_TestCase
 
         $url = 'http://wx.qlogo.cn/mmopen/fBvGRLgXxDVXpvoyVniavXIELA2WNfNQZg974Lxuic48o44IUEUN3RDabgoGxnsWOGE85CyHZWbjsm6Xy8FoCKKaUFftdyFJQz/0';
         $this->sdk->downloadHeadImage($url, __DIR__ . '/RLgXxDVXpvoyVniavXIELA2WNfN.jpg');
+    }
+
+    public function testGetLoginUrl()
+    {
+        $result = $this->sdk->getLoginUrl('http://www.baidu.com', md5(uniqid()));
+        $this->assertTrue(stripos($result, urlencode("http://www.baidu.com")) > 0);
+        $this->assertTrue(stripos($result, "https://open.weixin.qq.com/connect/qrconnect?appid=") == 0);
     }
 }
